@@ -1,0 +1,63 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_lesson_graph">
+            <field name="model">training.lesson</field>
+            <field name="arch" type="xml">
+                <graph string="课程">
+                    <field name="startdate" type="row"/>
+                    <field name="subject_id" type="col"/>
+                    <field name="qty_seat" type="measure"/>
+                </graph>
+            </field>
+        </record>
+        
+        <record id="view_lesson_form" model="ir.ui.view">
+            <field name="name">training.lesson.form</field>
+            <field name="model">training.lesson</field>
+            <field name="arch" type="xml">
+                <form string="课程">
+                    <header>
+                        <button name="action_confirm" type="object" string="确认"  states="draft" class="btn-primary" />
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" attrs="{'readonly': [('state', '=', 'confirm')]}" />
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="subject_id" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                                <field name="teacher_id" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                                <field name="person_id" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                                <field name="qty_seat"/>
+                            </group>
+                            <group>
+                                <field name="startdate" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                                <field name="enddate" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="学生">
+                                <button name="%(action_training_student_regiester_view)d" type="action" string="学生注册"  states="confirm" />
+                                <field name="student_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+
+            </field>
+        </record>
+
+        <record id="action_lesson" model="ir.actions.act_window">
+            <field name="name">课程</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">training.lesson</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_lesson_tree"/>
+            <field name="view_mode">form,graph</field>
+        </record>
+    </data>
+</odoo>
