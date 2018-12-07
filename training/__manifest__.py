@@ -9,6 +9,8 @@
     'data': [
         'security/ir.model.access.csv',
         'views/home_views.xml',
+        'views/lesson_views.xml',
+        'views/subject_views.xml',
     ],
     'demo': [],
     'qweb': [],
